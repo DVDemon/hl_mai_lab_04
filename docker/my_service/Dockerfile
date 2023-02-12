@@ -8,8 +8,7 @@ RUN git clone https://github.com/tdv/redis-cpp.git && cd redis-cpp && mkdir buil
 
 RUN git clone https://github.com/edenhill/librdkafka.git && cd librdkafka && ./configure && make && sudo make install && cd ..
 RUN git clone https://github.com/mfontanini/cppkafka && cd cppkafka && mkdir build && cd build && cmake .. && make && sudo make install && cd .. && cd .. 
-
-RUN git clone https://github.com/DVDemon/hl_mai_lab_04.git
+RUN git clone  https://github.com/DVDemon/hl_mai_lab_04.git
 RUN sudo ldconfig
 RUN cd hl_mai_lab_04 && mkdir build && cd build && cmake  .. && make
 ENTRYPOINT [ "hl_mai_lab_04/build/hl_mai_lab_04" ]
