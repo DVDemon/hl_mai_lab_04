@@ -158,6 +158,30 @@ services:
       - db-node-2
       - db-node-3
 
+  writer:
+    build:
+      context: writer
+      dockerfile: Dockerfile
+    container_name: writer
+    environment:
+      - DB_HOST=proxysql
+      - DB_PORT=6033
+      - DB_LOGIN=stud
+      - DB_PASSWORD=stud
+      - DB_DATABASE=archdb
+      - CACHE=cache:6379
+      - QUEUE_HOST=kafka-node-1:9092
+      - QUEUE_TOPIC=event_server
+      - QUEUE_GROUP_ID=0
+    networks:
+      - arch-network
+    depends_on:
+      - proxysql
+      - cache
+      - kafka-node-1
+      - db-node-1
+      - db-node-2
+      - db-node-3
 
 volumes:
   db-node-1-data:
