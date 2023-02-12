@@ -127,28 +127,32 @@ services:
           ADVERTISED_HOST_NAME: localhost
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-  # my_service:
-  #   build:
-  #     context: my_service
-  #     dockerfile: Dockerfile
-  #   container_name: my_service
-  #   environment:
-  #     - DB_HOST=proxysql
-  #     - DB_PORT=6033
-  #     - DB_LOGIN=stud
-  #     - DB_PASSWORD=stud
-  #     - DB_DATABASE=archdb
-  #     - CACHE=cache:6379
-  #   ports:
-  #     - 8080:8080
-  #   networks:
-  #     - arch-network
-  #   depends_on:
-  #     - proxysql
-  #     - cache
-  #     - db-node-1
-  #     - db-node-2
-  #     - db-node-3
+  my_service:
+    build:
+      context: my_service
+      dockerfile: Dockerfile
+    container_name: my_service
+    environment:
+      - DB_HOST=proxysql
+      - DB_PORT=6033
+      - DB_LOGIN=stud
+      - DB_PASSWORD=stud
+      - DB_DATABASE=archdb
+      - CACHE=cache:6379
+      - QUEUE_HOST=127.0.0.1:9092
+      - QUEUE_TOPIC=event_server
+      - QUEUE_GROUP_ID=0
+    ports:
+      - 8080:8080
+    networks:
+      - arch-network
+    depends_on:
+      - proxysql
+      - cache
+      - kafka-node-1
+      - db-node-1
+      - db-node-2
+      - db-node-3
 
 
 volumes:
